@@ -19,7 +19,7 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        supportActionBar?.hide()
+
     }
 
     // ============================================================

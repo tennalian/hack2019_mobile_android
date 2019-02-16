@@ -1,3 +1,8 @@
 <resources>
-	<string name="app_name">City ProblemsMap</string>
+	<string name="app_name">Карта городских проблем</string>
+    <string name="send_point_title">Отправить обращение</string>
+    <string name="add_photo">Добавить фото</string>
+    <string name="title_hint">Заголовок</string>
+    <string name="description_hint">Описание вашего обращения</string>
+    <string name="submit_button_title">Отправить</string>
 </resources>
