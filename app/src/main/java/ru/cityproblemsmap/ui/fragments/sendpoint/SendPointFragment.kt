@@ -46,7 +46,7 @@ class SendPointFragment : BaseFragment(), SendPointView {
     // ============================================================
 
     private fun initUI(view: View) {
-        setupToolbar(view, R.string.send_point_title, null, true, btnBackClickListener)
+        setupToolbar(view, R.string.send_point_screen_send_point_title, null, false, btnBackClickListener)
         setStatusBarColor(R.color.toolbarBackgroundSendPoint)
 
         btn_send.setOnClickListener(btnAddPhotoClickListener)

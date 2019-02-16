@@ -1,6 +1,6 @@
 package ru.cityproblemsmap.api.model
 
-data class Point(
+data class PointData(
     val latitude: Double,
     val longitude: Double,
     val group: String,
