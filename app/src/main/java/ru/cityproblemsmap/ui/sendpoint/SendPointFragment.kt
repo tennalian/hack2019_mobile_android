@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import kotlinx.android.synthetic.main.fragment_send_point.*
 import ru.cityproblemsmap.R
 import ru.cityproblemsmap.utils.DimensHelper
 
@@ -36,7 +37,11 @@ class SendPointFragment : MvpAppCompatFragment(), SendPointView {
 
     private val btnBackClickListener = View.OnClickListener { }
 
-    private val btnAddPhotoClickListener = View.OnClickListener {}
+    private val btnAddPhotoClickListener = View.OnClickListener {
+        presenter.onSendButtonPressed(
+                et_title.text.toString(),
+                et_description.text.toString())
+    }
 
     // ============================================================
     // Private
@@ -45,7 +50,7 @@ class SendPointFragment : MvpAppCompatFragment(), SendPointView {
     private fun initUI(view: View) {
         setupToolbar(view, R.string.send_point_title, null, true, btnBackClickListener)
 
-
+        btn_send.setOnClickListener(btnAddPhotoClickListener)
     }
 
     private fun setupToolbar(
@@ -90,6 +95,7 @@ class SendPointFragment : MvpAppCompatFragment(), SendPointView {
         activity.setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener(toolbarNavigationButtonClickListener)
     }
+
 //
 //    fun setStatusBarColor(statusBar: View, color: Int) {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

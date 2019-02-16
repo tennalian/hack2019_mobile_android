@@ -72,13 +72,13 @@
         android:paddingEnd="4dp"
         android:paddingBottom="8dp"
         android:singleLine="false"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btn_send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_title" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_send"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
