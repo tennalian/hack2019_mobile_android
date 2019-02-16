@@ -1,9 +1,8 @@
-package ru.cityproblemsmap.ui.mainactivity
+package ru.cityproblemsmap.ui.activities.mainactivity
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import ru.cityproblemsmap.ui.sendpoint.SendPointFragment
-import ru.cityproblemsmap.ui.sendpoint.SendPointView
+import ru.cityproblemsmap.ui.fragments.sendpoint.SendPointFragment
 
 @InjectViewState
 class MainActivityPresenter : MvpPresenter<MainActivityView>() {

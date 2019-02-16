@@ -13,9 +13,9 @@
         android:name=".App"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.mainactivity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
+                android:name="ru.cityproblemsmap.ui.activities.mainactivity.MainActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package ru.cityproblemsmap.api
+package ru.cityproblemsmap.api.model
 
 data class Point(
     val latitude: Double,

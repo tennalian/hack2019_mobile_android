@@ -1,4 +1,4 @@
-package ru.cityproblemsmap.ui.mainactivity
+package ru.cityproblemsmap.ui.activities.mainactivity
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

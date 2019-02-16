@@ -1,4 +1,4 @@
-package ru.cityproblemsmap.ui.sendpoint
+package ru.cityproblemsmap.ui.fragments.sendpoint
 
 import com.arellomobile.mvp.MvpView
 
