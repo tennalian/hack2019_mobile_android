@@ -1,7 +1,6 @@
 package ru.cityproblemsmap.ui.activities.mainactivity
 
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.Manifest.permission.*
 import android.net.Uri
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
@@ -15,6 +14,7 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
         private const val EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1002
+        private const val GPS_PERMISSION_REQUEST_CODE = 1003
     }
 
     override fun onFirstViewAttach() {
@@ -22,6 +22,7 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
         requestCameraPermission()
         requestExternalStorageWritePermission()
+        requestGpsPermissions()
 
         openMapFragment()
     }
@@ -55,6 +56,10 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
     private fun requestExternalStorageWritePermission() {
         viewState.requestPermissions(WRITE_EXTERNAL_STORAGE, EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE)
+    }
+
+    private fun requestGpsPermissions() {
+        viewState.requestPermissions(ACCESS_FINE_LOCATION, GPS_PERMISSION_REQUEST_CODE)
     }
 
 }

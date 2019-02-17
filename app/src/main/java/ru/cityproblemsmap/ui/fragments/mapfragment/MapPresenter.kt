@@ -29,12 +29,6 @@ class MapPresenter : BasePresenter<MapView>(), KoinComponent {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-//        viewState.showPoints(
-//                listOf(
-//                        Point(54.751574, 20.573856),
-//                        Point(54.761574, 20.583856)
-//                )
-//        )
 
         getCurrentPoints()
     }
@@ -68,7 +62,6 @@ class MapPresenter : BasePresenter<MapView>(), KoinComponent {
     }
 
     private fun getCurrentPoints() {
-        //TODO get group
         disposables.add(apiClient.getAllPoints()
                 .subscribe({
                     showPoints(it)

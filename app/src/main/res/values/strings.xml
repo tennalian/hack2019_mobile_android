@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Карта городских проблем</string>
+    <string name="app_name">Право на город</string>
 
     <string name="send_point_screen_send_point_title">Отправить обращение</string>
     <string name="send_point_screen_add_photo">Добавить фото</string>

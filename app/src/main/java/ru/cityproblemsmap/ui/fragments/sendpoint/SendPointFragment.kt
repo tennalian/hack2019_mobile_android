@@ -78,6 +78,8 @@ class SendPointFragment : BaseFragment(), SendPointView {
     override fun setButtonEnabled(enabled: Boolean) {
         if (!enabled)
             btn_send.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.darker_gray, context?.theme))
+        else
+            btn_send.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorPrimaryDark, context?.theme))
     }
 
     // ============================================================

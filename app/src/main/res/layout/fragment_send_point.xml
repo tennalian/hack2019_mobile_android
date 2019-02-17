@@ -97,7 +97,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="#F5A623"
+        android:background="@color/colorPrimaryDark"
         android:text="@string/send_point_screen_submit_button_title"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
