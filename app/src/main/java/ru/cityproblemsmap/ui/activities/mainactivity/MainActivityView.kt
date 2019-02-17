@@ -9,7 +9,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 interface MainActivityView : MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun openFragment(fragment: Fragment)
+    fun openFragment(fragment: Fragment, fragmentName: String? = null)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun requestPermissions(permission: String, requestCode: Int)

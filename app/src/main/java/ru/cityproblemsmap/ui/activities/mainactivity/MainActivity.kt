@@ -31,11 +31,21 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
     // MainActivityView
     // ============================================================
 
-    override fun openFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
+    override fun openFragment(fragment: Fragment, fragmentName: String?) {
+        val transaction = supportFragmentManager.beginTransaction()
                 .replace(R.id.fl_main, fragment)
-                .addToBackStack("$fragment")
-                .commit()
+
+        when (fragmentName) {
+            null -> {
+                transaction
+                        .commit()
+            }
+            else ->
+                transaction
+                        .addToBackStack(fragmentName)
+                        .commit()
+        }
+
     }
 
     override fun requestPermissions(permission: String, requestCode: Int) {

@@ -2,6 +2,7 @@ package ru.cityproblemsmap.ui.fragments.sendpoint
 
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,10 @@ class SendPointFragment : BaseFragment(), SendPointView {
     // UI
     // ============================================================
 
-    private val btnBackClickListener = View.OnClickListener { activity?.supportFragmentManager?.popBackStack() }
+    private val btnBackClickListener = View.OnClickListener {
+        activity?.supportFragmentManager
+                ?.popBackStack("SendPointFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
 
     private val btnAddPhotoClickListener = View.OnClickListener {
         //        presenter.uploadPhoto(imageUri)

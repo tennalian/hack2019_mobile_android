@@ -33,7 +33,7 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
     private fun openSendPointFragment(photoUri: Uri?) {
         if (photoUri == null) {
-            viewState.openFragment(SendPointFragment())
+            viewState.openFragment(SendPointFragment(), "SendPointFragment")
             return
         }
 
@@ -41,7 +41,7 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
         val args = Bundle()
         args.putParcelable("uri", photoUri)
         fragment.arguments = args
-        viewState.openFragment(fragment)
+        viewState.openFragment(fragment, "SendPointFragment")
     }
 
 
