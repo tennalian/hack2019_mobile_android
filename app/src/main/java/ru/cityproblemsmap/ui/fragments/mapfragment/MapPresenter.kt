@@ -18,5 +18,9 @@ class MapPresenter : MvpPresenter<MapView>() {
         )
     }
 
+    fun addButtonClicked() {
+        //TODO
+    }
+
 
 }

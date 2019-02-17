@@ -7,4 +7,6 @@ interface MainActivityView : MvpView {
 
     fun openFragment(fragment: Fragment)
 
+    fun requestPermissions(permission: String, requestCode: Int)
+
 }

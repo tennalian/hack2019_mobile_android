@@ -18,6 +18,11 @@ class MapFragment : BaseFragment(), MapView {
     @InjectPresenter
     lateinit var presenter: MapPresenter
 
+    companion object {
+        val START_POINT = Point(54.751574, 20.573856)
+        const val START_ZOOM = 11f
+    }
+
     // ============================================================
     // Fragment callbacks
     // ============================================================
@@ -32,12 +37,25 @@ class MapFragment : BaseFragment(), MapView {
         initUI(view)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStart() {
+        super.onStart()
+
+        mapview.onStart()
+        MapKitFactory.getInstance().onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
 
         mapview.onStop()
         MapKitFactory.getInstance().onStop()
     }
+
+    // ============================================================
+    // UI Handlers
+    // ============================================================
+
+    private val btnAddPointClickListener = View.OnClickListener { presenter.addButtonClicked() }
 
     // ============================================================
     // MapView
@@ -54,15 +72,13 @@ class MapFragment : BaseFragment(), MapView {
     // ============================================================
 
     private fun initUI(view: View) {
-        mapview.onStart()
-        MapKitFactory.getInstance().onStart()
-
         mapview.map.move(
-            CameraPosition(
-                Point(54.751574, 20.573856),
-                11.0f, 0.0f, 0.0f
-            ), Animation(Animation.Type.SMOOTH, 0f), null
+                CameraPosition(START_POINT, START_ZOOM, 0.0f, 0.0f),
+                Animation(Animation.Type.SMOOTH, 0f),
+                null
         )
+
+
     }
 
 }
