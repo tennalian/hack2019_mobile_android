@@ -15,7 +15,7 @@ import java.io.File
 class ApiClientImpl(private val apiService: ApiService) : ApiClient {
 
     override fun sendPoint(lat: Double, lon: Double, title: String, description: String): Observable<Any> {
-        return apiService.sendPoints(SendPointData(lat, lon, "1", "1", title))
+        return apiService.sendPoints(SendPointData(lat, lon, "3", "3", "1", title))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

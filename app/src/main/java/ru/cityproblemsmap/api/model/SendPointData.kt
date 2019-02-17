@@ -4,9 +4,10 @@ data class SendPointData(
         val latitude: Double,
         val longitude: Double,
         val group: String,
+        val status: String,
         val category: String,
-        val description: String,
-        val photoUrl: String? = ""
+        val description: String
+//        val photoUrl: String? = ""
 )
 
 data class GetPointsResponse(

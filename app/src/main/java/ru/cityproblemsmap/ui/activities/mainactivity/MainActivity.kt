@@ -34,6 +34,7 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
     override fun openFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fl_main, fragment)
+                .addToBackStack("$fragment")
                 .commit()
     }
 

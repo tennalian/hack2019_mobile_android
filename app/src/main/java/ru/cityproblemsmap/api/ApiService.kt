@@ -9,14 +9,14 @@ import ru.cityproblemsmap.api.model.UploadImageResponse
 
 interface ApiService {
 
-    @POST("api/points/")
+    @POST("/api/points/")
     fun sendPoints(@Body sendPointData: SendPointData): Observable<Any>
 
     @GET("/api/allpoints/")
     fun getAllPoints(): Observable<GetPointsResponse>
 
     //todo maybe add headers
-//    @Headers("Content-Type: multipart/form-data")
+    @Headers("Content-Type: multipart/form-data")
     @Multipart
     @PUT("/api/uploadimage/")
     fun uploadImage(@Part("file") file: RequestBody): Observable<UploadImageResponse>

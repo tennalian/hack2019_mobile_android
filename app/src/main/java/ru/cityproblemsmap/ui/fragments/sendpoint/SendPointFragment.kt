@@ -36,18 +36,20 @@ class SendPointFragment : BaseFragment(), SendPointView {
         initUI(view)
     }
 
+
     // ============================================================
     // UI
     // ============================================================
 
-    private val btnBackClickListener = View.OnClickListener { }
+    private val btnBackClickListener = View.OnClickListener { activity?.supportFragmentManager?.popBackStack() }
 
     private val btnAddPhotoClickListener = View.OnClickListener {
-        presenter.uploadPhoto(imageUri)
-//        presenter.onSendButtonPressed(
-//                et_title.text.toString(),
-//                et_description.text.toString()
-//        )
+        //        presenter.uploadPhoto(imageUri)
+        presenter.onSendButtonPressed(
+                et_title.text.toString(),
+                et_description.text.toString(),
+                imageUri
+        )
     }
 
     // ============================================================
@@ -64,7 +66,7 @@ class SendPointFragment : BaseFragment(), SendPointView {
     // ============================================================
 
     private fun initUI(view: View) {
-        setupToolbar(view, R.string.send_point_screen_send_point_title, null, false, btnBackClickListener)
+        setupToolbar(view, R.string.send_point_screen_send_point_title, null, true, btnBackClickListener)
         setStatusBarColor(R.color.toolbarBackgroundSendPoint)
 
         btn_send.setOnClickListener(btnAddPhotoClickListener)

@@ -21,7 +21,59 @@ class SendPointPresenter : BasePresenter<SendPointView>(), KoinComponent {
 
     private val context: Context by inject()
 
-    fun onSendButtonPressed(title: String, description: String) {
+    fun onSendButtonPressed(title: String, description: String, imageUri: Uri?) {
+        val file = FileUtil.from(context, imageUri!!)
+        disposables.add(
+                apiClient.uploadImage(file)
+                        .subscribe({
+                            onPhotoUploaded(title, description)
+                            Log.w(TAG, "Got uploadimageresponse")
+                        }) {
+                            onPhotoUploaded(title, description)
+                            Log.e(TAG, "Error uploading image", it)
+                        }
+        )
+
+
+    }
+
+    fun onPhotoAdded(photoUri: Uri) {
+        viewState.showPhoto(photoUri)
+    }
+
+//    fun uploadPhoto(imageUri: Uri?) {
+////        val file = FileUtils.getFile(context, imageUri)
+//
+////        val file = File("${imageUri?.path}")
+////        val inputStream = context.contentResolver.openInputStream(imageUri) ?: return
+////        val out = FileOutputStream(file)
+////        val buf = ByteArray(1024)
+////        var len: Int = inputStream.read(buf)
+////        while (len > 0) {
+////            out.write(buf, 0, len)
+////            len = inputStream.read(buf)
+////        }
+////        out.close()
+////        inputStream.close()
+//
+//        val file = FileUtil.from(context, imageUri!!)
+//
+//        if (file == null) {
+//            Log.e(TAG, "file is null")
+//            return
+//        }
+//
+//        disposables.add(
+//                apiClient.uploadImage(file)
+//                        .subscribe({
+//                            Log.w(TAG, "Got uploadimageresponse")
+//                        }) {
+//                            Log.e(TAG, "Error uploading image", it)
+//                        }
+//        )
+//    }
+
+    private fun onPhotoUploaded(title: String, description: String) {
         disposables.add(
                 apiClient.sendPoint(54.1, 20.1, title, description)
                         .subscribe({
@@ -32,39 +84,4 @@ class SendPointPresenter : BasePresenter<SendPointView>(), KoinComponent {
         )
     }
 
-    fun onPhotoAdded(photoUri: Uri) {
-        viewState.showPhoto(photoUri)
-    }
-
-    fun uploadPhoto(imageUri: Uri?) {
-//        val file = FileUtils.getFile(context, imageUri)
-
-//        val file = File("${imageUri?.path}")
-//        val inputStream = context.contentResolver.openInputStream(imageUri) ?: return
-//        val out = FileOutputStream(file)
-//        val buf = ByteArray(1024)
-//        var len: Int = inputStream.read(buf)
-//        while (len > 0) {
-//            out.write(buf, 0, len)
-//            len = inputStream.read(buf)
-//        }
-//        out.close()
-//        inputStream.close()
-
-        val file = FileUtil.from(context, imageUri!!)
-
-        if (file == null) {
-            Log.e(TAG, "file is null")
-            return
-        }
-
-        disposables.add(
-                apiClient.uploadImage(file)
-                        .subscribe({
-                            Log.w(TAG, "Got uploadimageresponse")
-                        }) {
-                            Log.e(TAG, "Error uploading image", it)
-                        }
-        )
-    }
 }
