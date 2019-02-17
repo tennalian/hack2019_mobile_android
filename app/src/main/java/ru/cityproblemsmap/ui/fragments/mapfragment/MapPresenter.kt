@@ -9,26 +9,34 @@ import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.yandex.mapkit.geometry.Point
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
+import ru.cityproblemsmap.api.ApiClient
+import ru.cityproblemsmap.api.model.GetPointsResponse
+import ru.cityproblemsmap.ui.base.BasePresenter
 import java.io.ByteArrayOutputStream
 
 @InjectViewState
-class MapPresenter : MvpPresenter<MapView>() {
+class MapPresenter : BasePresenter<MapView>(), KoinComponent {
 
     companion object {
         const val TAG = "MapPresenter"
     }
 
+    private val apiClient: ApiClient by inject()
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        viewState.showPoints(
-                listOf(
-                        Point(54.751574, 20.573856),
-                        Point(54.761574, 20.583856)
-                )
-        )
+//        viewState.showPoints(
+//                listOf(
+//                        Point(54.751574, 20.573856),
+//                        Point(54.761574, 20.583856)
+//                )
+//        )
+
+        getCurrentPoints()
     }
 
     fun addButtonClicked(fragment: Fragment, requestCode: Int) {
@@ -57,6 +65,25 @@ class MapPresenter : MvpPresenter<MapView>() {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
         return Uri.parse(path)
+    }
+
+    private fun getCurrentPoints() {
+        //TODO get group
+        disposables.add(apiClient.getAllPoints()
+                .subscribe({
+                    showPoints(it)
+                }) {
+                    Log.e(TAG, "error getting points", it)
+                })
+    }
+
+    private fun showPoints(points: GetPointsResponse) {
+        val yandexPoints = mutableListOf<Point>()
+        points.points.map {
+            yandexPoints.add(Point(it.latitude, it.longitude))
+        }
+
+        viewState.showPoints(yandexPoints)
     }
 
 }

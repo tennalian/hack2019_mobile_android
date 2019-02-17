@@ -106,6 +106,8 @@ class MapFragment : BaseFragment(), MapView {
         )
 
         fab_add_point.setOnClickListener(btnAddPointClickListener)
+
+
     }
 
 }
