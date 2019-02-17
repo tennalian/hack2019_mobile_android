@@ -9,10 +9,10 @@ import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
-import com.yandex.mapkit.geometry.Point
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import ru.cityproblemsmap.api.ApiClient
+import ru.cityproblemsmap.api.model.GetPointData
 import ru.cityproblemsmap.api.model.GetPointsResponse
 import ru.cityproblemsmap.ui.base.BasePresenter
 import java.io.ByteArrayOutputStream
@@ -78,12 +78,11 @@ class MapPresenter : BasePresenter<MapView>(), KoinComponent {
     }
 
     private fun showPoints(points: GetPointsResponse) {
-        val yandexPoints = mutableListOf<Point>()
-        points.points.map {
-            yandexPoints.add(Point(it.latitude, it.longitude))
-        }
+        viewState.showPoints(points)
+    }
 
-        viewState.showPoints(yandexPoints)
+    fun onPointClicked(pointData: GetPointData) {
+
     }
 
 }

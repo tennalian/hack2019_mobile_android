@@ -4,7 +4,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import ru.cityproblemsmap.api.model.GetPointsResponse
 import ru.cityproblemsmap.api.model.SendPointData
@@ -14,8 +13,8 @@ import java.io.File
 
 class ApiClientImpl(private val apiService: ApiService) : ApiClient {
 
-    override fun sendPoint(lat: Double, lon: Double, title: String, description: String): Observable<Any> {
-        return apiService.sendPoints(SendPointData(lat, lon, "3", "3", "1", title))
+    override fun sendPoint(lat: Double, lon: Double, title: String, description: String, photoUrl: String): Observable<Any> {
+        return apiService.sendPoints(SendPointData(lat, lon, "3", "3", "1", title, photoUrl))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
@@ -36,8 +35,8 @@ class ApiClientImpl(private val apiService: ApiService) : ApiClient {
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
 
         // MultipartBody.Part используется, чтобы передать имя файла
-        val body = MultipartBody.Part.createFormData("picture", file.name, requestFile)
-        val reqbody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+//        val body = MultipartBody.Part.createFormData("picture", file.name, requestFile)
+        val reqbody = RequestBody.create(MediaType.parse("image/*"), file)
 
 //        // Добавляем описание
 //        val descriptionString = "hello, this is description speaking"

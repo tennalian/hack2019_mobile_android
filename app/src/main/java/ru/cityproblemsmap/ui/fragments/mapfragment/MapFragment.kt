@@ -14,6 +14,7 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import kotlinx.android.synthetic.main.fragment_map.*
 import ru.cityproblemsmap.R
+import ru.cityproblemsmap.api.model.GetPointsResponse
 import ru.cityproblemsmap.ui.activities.mainactivity.MainActivityView
 import ru.cityproblemsmap.ui.base.BaseFragment
 
@@ -23,8 +24,10 @@ class MapFragment : BaseFragment(), MapView {
     lateinit var presenter: MapPresenter
 
     companion object {
-        val START_POINT = Point(54.751574, 20.573856)
-        const val START_ZOOM = 11f
+        const val TAG = "MapFragment"
+
+        val START_POINT = Point(54.720430, 20.503067)
+        const val START_ZOOM = 12f
 
         const val IMAGE_CAPTURE_REQUEST_CODE = 102
     }
@@ -84,10 +87,19 @@ class MapFragment : BaseFragment(), MapView {
     // MapView
     // ============================================================
 
-    override fun showPoints(points: List<Point>) {
+    override fun showPoints(points: GetPointsResponse) {
+        val yandexPoints = mutableListOf<Point>()
+        points.points.map {
+            yandexPoints.add(Point(it.latitude, it.longitude))
+        }
+
         mapview.map.mapObjects.clear()
-        points.map {
-            mapview.map.mapObjects.addPlacemark(it)
+        points.points.map {
+            val marker = mapview.map.mapObjects.addPlacemark(Point(it.latitude, it.longitude))
+            marker.addTapListener { _, _ ->
+                presenter.onPointClicked(it)
+                true
+            }
         }
 
     }

@@ -22,14 +22,17 @@ class SendPointPresenter : BasePresenter<SendPointView>(), KoinComponent {
     private val context: Context by inject()
 
     fun onSendButtonPressed(title: String, description: String, imageUri: Uri?) {
+        viewState.setButtonEnabled(false)
+
         val file = FileUtil.from(context, imageUri!!)
         disposables.add(
                 apiClient.uploadImage(file)
                         .subscribe({
-                            onPhotoUploaded(title, description)
+                            onPhotoUploaded(title, description, it.url)
                             Log.w(TAG, "Got uploadimageresponse")
                         }) {
-                            onPhotoUploaded(title, description)
+                            viewState.setButtonEnabled(true)
+                            viewState.showToast("Ошибка загрузки фото")
                             Log.e(TAG, "Error uploading image", it)
                         }
         )
@@ -73,15 +76,24 @@ class SendPointPresenter : BasePresenter<SendPointView>(), KoinComponent {
 //        )
 //    }
 
-    private fun onPhotoUploaded(title: String, description: String) {
+    private fun onPhotoUploaded(title: String, description: String, imageUrl: String) {
         disposables.add(
-                apiClient.sendPoint(54.1, 20.1, title, description)
+                apiClient.sendPoint(54.1, 20.1, title, description, imageUrl)
                         .subscribe({
                             Log.v("ApiClientImpl", "Got info: ${it::class.java}")
+                            popFragment()
                         }) {
                             Log.e("ApiClientImpl", "Error", it)
+
+                            viewState.showToast("Ошибка отправки фото")
+                            viewState.setButtonEnabled(true)
                         }
         )
+    }
+
+    private fun popFragment() {
+        viewState.showToast("Обращение успешно отправлено!")
+        viewState.popFragment()
     }
 
 }

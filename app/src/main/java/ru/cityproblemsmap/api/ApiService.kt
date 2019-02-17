@@ -15,10 +15,10 @@ interface ApiService {
     @GET("/api/allpoints/")
     fun getAllPoints(): Observable<GetPointsResponse>
 
-    //todo maybe add headers
-    @Headers("Content-Type: multipart/form-data")
+
+    //    @Headers("Content-Type: multipart/form-data")
     @Multipart
     @PUT("/api/uploadimage/")
-    fun uploadImage(@Part("file") file: RequestBody): Observable<UploadImageResponse>
+    fun uploadImage(@Part("file\"; filename=\"pp.png\" ") file: RequestBody): Observable<UploadImageResponse>
 
 }

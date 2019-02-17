@@ -7,7 +7,7 @@ import java.io.File
 
 interface ApiClient {
 
-    fun sendPoint(lat: Double, lon: Double, title: String, description: String): Observable<Any>
+    fun sendPoint(lat: Double, lon: Double, title: String, description: String, photoUrl: String): Observable<Any>
 
     fun getAllPoints(): Observable<GetPointsResponse>
 

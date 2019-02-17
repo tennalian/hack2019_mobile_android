@@ -10,4 +10,10 @@ interface SendPointView : MvpView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showPhoto(uri: Uri)
 
+    fun popFragment()
+
+    fun showToast(message: String)
+
+    fun setButtonEnabled(enabled: Boolean)
+
 }

@@ -3,9 +3,11 @@ package ru.cityproblemsmap.ui.fragments.sendpoint
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.res.ResourcesCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.fragment_send_point.*
 import ru.cityproblemsmap.R
@@ -43,8 +45,7 @@ class SendPointFragment : BaseFragment(), SendPointView {
     // ============================================================
 
     private val btnBackClickListener = View.OnClickListener {
-        activity?.supportFragmentManager
-                ?.popBackStack("SendPointFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        popFragment()
     }
 
     private val btnAddPhotoClickListener = View.OnClickListener {
@@ -63,6 +64,20 @@ class SendPointFragment : BaseFragment(), SendPointView {
     override fun showPhoto(uri: Uri) {
         iv_photo.setImageURI(uri)
         imageUri = uri
+    }
+
+    override fun popFragment() {
+        activity?.supportFragmentManager
+                ?.popBackStack("SendPointFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setButtonEnabled(enabled: Boolean) {
+        if (!enabled)
+            btn_send.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.darker_gray, context?.theme))
     }
 
     // ============================================================

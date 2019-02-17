@@ -15,7 +15,6 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
     @InjectPresenter
     lateinit var presenter: MainActivityPresenter
 
-
     // ============================================================
     // Activity callbacks
     // ============================================================
