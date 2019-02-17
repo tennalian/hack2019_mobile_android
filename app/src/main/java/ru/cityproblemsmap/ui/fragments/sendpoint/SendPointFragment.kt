@@ -2,7 +2,6 @@ package ru.cityproblemsmap.ui.fragments.sendpoint
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +48,14 @@ class SendPointFragment : BaseFragment(), SendPointView {
     }
 
     // ============================================================
+    // SendPointView
+    // ============================================================
+
+    override fun showPhoto(uri: Uri) {
+        iv_photo.setImageURI(uri)
+    }
+
+    // ============================================================
     // Private
     // ============================================================
 
@@ -62,8 +69,8 @@ class SendPointFragment : BaseFragment(), SendPointView {
     }
 
     private fun checkBundle() {
-        val photoUri = arguments?.getParcelable<Uri>("uri")
-        Log.w(TAG, "$photoUri")
+        val photoUri = arguments?.getParcelable<Uri>("uri") ?: return
+        presenter.onPhotoAdded(photoUri)
     }
 
 //

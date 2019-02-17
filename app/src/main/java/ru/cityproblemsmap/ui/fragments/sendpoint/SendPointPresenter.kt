@@ -1,5 +1,6 @@
 package ru.cityproblemsmap.ui.fragments.sendpoint
 
+import android.net.Uri
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import org.koin.standalone.KoinComponent
@@ -21,5 +22,9 @@ class SendPointPresenter : BasePresenter<SendPointView>(), KoinComponent {
                     Log.e("ApiClientImpl", "Error", it)
                 }
         )
+    }
+
+    fun onPhotoAdded(photoUri: Uri) {
+        viewState.showPhoto(photoUri)
     }
 }
