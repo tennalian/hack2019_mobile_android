@@ -1,6 +1,9 @@
 package ru.cityproblemsmap.ui.activities.mainactivity
 
 import android.Manifest.permission.CAMERA
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.net.Uri
+import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.cityproblemsmap.ui.fragments.mapfragment.MapFragment
@@ -9,17 +12,36 @@ import ru.cityproblemsmap.ui.fragments.sendpoint.SendPointFragment
 @InjectViewState
 class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
-    val CAMERA_PERMISSION_REQUEST_CODE = 101
+    companion object {
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
+        private const val EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1002
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
         requestCameraPermission()
+        requestExternalStorageWritePermission()
+
         openMapFragment()
     }
 
-    private fun openSendPointFragment() {
-        viewState.openFragment(SendPointFragment())
+
+    fun onPhotoMade(photoUri: Uri) {
+        openSendPointFragment(photoUri)
+    }
+
+    private fun openSendPointFragment(photoUri: Uri?) {
+        if (photoUri == null) {
+            viewState.openFragment(SendPointFragment())
+            return
+        }
+
+        val fragment = SendPointFragment()
+        val args = Bundle()
+        args.putParcelable("uri", photoUri)
+        fragment.arguments = args
+        viewState.openFragment(fragment)
     }
 
 
@@ -29,6 +51,10 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
     private fun requestCameraPermission() {
         viewState.requestPermissions(CAMERA, CAMERA_PERMISSION_REQUEST_CODE)
+    }
+
+    private fun requestExternalStorageWritePermission() {
+        viewState.requestPermissions(WRITE_EXTERNAL_STORAGE, EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE)
     }
 
 }

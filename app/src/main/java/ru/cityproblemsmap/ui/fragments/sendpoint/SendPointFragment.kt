@@ -1,6 +1,8 @@
 package ru.cityproblemsmap.ui.fragments.sendpoint
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,10 @@ import ru.cityproblemsmap.ui.base.BaseFragment
 
 
 class SendPointFragment : BaseFragment(), SendPointView {
+
+    companion object {
+        const val TAG = "SendPointFragment"
+    }
 
     @InjectPresenter
     lateinit var presenter: SendPointPresenter
@@ -25,6 +31,7 @@ class SendPointFragment : BaseFragment(), SendPointView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initUI(view)
     }
 
@@ -36,8 +43,8 @@ class SendPointFragment : BaseFragment(), SendPointView {
 
     private val btnAddPhotoClickListener = View.OnClickListener {
         presenter.onSendButtonPressed(
-            et_title.text.toString(),
-            et_description.text.toString()
+                et_title.text.toString(),
+                et_description.text.toString()
         )
     }
 
@@ -50,6 +57,13 @@ class SendPointFragment : BaseFragment(), SendPointView {
         setStatusBarColor(R.color.toolbarBackgroundSendPoint)
 
         btn_send.setOnClickListener(btnAddPhotoClickListener)
+
+        checkBundle()
+    }
+
+    private fun checkBundle() {
+        val photoUri = arguments?.getParcelable<Uri>("uri")
+        Log.w(TAG, "$photoUri")
     }
 
 //

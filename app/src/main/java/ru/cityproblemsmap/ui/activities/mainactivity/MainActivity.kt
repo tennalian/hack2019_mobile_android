@@ -1,6 +1,7 @@
 package ru.cityproblemsmap.ui.activities.mainactivity
 
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -43,6 +44,10 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
             ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
             //TODO do something if denied again
         }
+    }
+
+    override fun onPhotoMade(photoUri: Uri) {
+        presenter.onPhotoMade(photoUri)
     }
 
 }

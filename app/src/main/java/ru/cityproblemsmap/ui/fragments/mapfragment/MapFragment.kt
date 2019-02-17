@@ -1,6 +1,9 @@
 package ru.cityproblemsmap.ui.fragments.mapfragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +14,7 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import kotlinx.android.synthetic.main.fragment_map.*
 import ru.cityproblemsmap.R
+import ru.cityproblemsmap.ui.activities.mainactivity.MainActivityView
 import ru.cityproblemsmap.ui.base.BaseFragment
 
 class MapFragment : BaseFragment(), MapView {
@@ -21,6 +25,8 @@ class MapFragment : BaseFragment(), MapView {
     companion object {
         val START_POINT = Point(54.751574, 20.573856)
         const val START_ZOOM = 11f
+
+        const val IMAGE_CAPTURE_REQUEST_CODE = 102
     }
 
     // ============================================================
@@ -51,11 +57,28 @@ class MapFragment : BaseFragment(), MapView {
         MapKitFactory.getInstance().onStop()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            IMAGE_CAPTURE_REQUEST_CODE -> {
+                if (data == null) {
+                    Log.e("MapFragment", "image intent data is null")
+                    return
+                }
+
+                presenter.onImageCaptured(context!!, data)
+            }
+        }
+    }
+
     // ============================================================
     // UI Handlers
     // ============================================================
 
-    private val btnAddPointClickListener = View.OnClickListener { presenter.addButtonClicked() }
+    private val btnAddPointClickListener = View.OnClickListener {
+        presenter.addButtonClicked(this, IMAGE_CAPTURE_REQUEST_CODE)
+    }
 
     // ============================================================
     // MapView
@@ -65,6 +88,10 @@ class MapFragment : BaseFragment(), MapView {
         mapview.map.mapObjects.clear()
         points.map { mapview.map.mapObjects.addPlacemark(it) }
 
+    }
+
+    override fun passImageUriToAddPoint(uri: Uri) {
+        (activity as? MainActivityView)?.onPhotoMade(uri)
     }
 
     // ============================================================
@@ -78,7 +105,7 @@ class MapFragment : BaseFragment(), MapView {
                 null
         )
 
-
+        fab_add_point.setOnClickListener(btnAddPointClickListener)
     }
 
 }
