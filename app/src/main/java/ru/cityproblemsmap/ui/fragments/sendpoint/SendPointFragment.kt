@@ -20,6 +20,8 @@ class SendPointFragment : BaseFragment(), SendPointView {
     @InjectPresenter
     lateinit var presenter: SendPointPresenter
 
+    private var imageUri: Uri? = null
+
     // ============================================================
     // Fragment callbacks
     // ============================================================
@@ -41,10 +43,11 @@ class SendPointFragment : BaseFragment(), SendPointView {
     private val btnBackClickListener = View.OnClickListener { }
 
     private val btnAddPhotoClickListener = View.OnClickListener {
-        presenter.onSendButtonPressed(
-                et_title.text.toString(),
-                et_description.text.toString()
-        )
+        presenter.uploadPhoto(imageUri)
+//        presenter.onSendButtonPressed(
+//                et_title.text.toString(),
+//                et_description.text.toString()
+//        )
     }
 
     // ============================================================
@@ -53,6 +56,7 @@ class SendPointFragment : BaseFragment(), SendPointView {
 
     override fun showPhoto(uri: Uri) {
         iv_photo.setImageURI(uri)
+        imageUri = uri
     }
 
     // ============================================================

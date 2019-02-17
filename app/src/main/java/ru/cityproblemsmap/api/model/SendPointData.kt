@@ -23,3 +23,7 @@ data class GetPointData(
         val description: String,
         val photoUrl: String
 )
+
+data class UploadImageResponse(
+        val url: String
+)

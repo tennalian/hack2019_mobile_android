@@ -1,11 +1,11 @@
 package ru.cityproblemsmap.api
 
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import okhttp3.RequestBody
+import retrofit2.http.*
 import ru.cityproblemsmap.api.model.GetPointsResponse
 import ru.cityproblemsmap.api.model.SendPointData
+import ru.cityproblemsmap.api.model.UploadImageResponse
 
 interface ApiService {
 
@@ -14,5 +14,11 @@ interface ApiService {
 
     @GET("/api/allpoints/")
     fun getAllPoints(): Observable<GetPointsResponse>
+
+    //todo maybe add headers
+//    @Headers("Content-Type: multipart/form-data")
+    @Multipart
+    @PUT("/api/uploadimage/")
+    fun uploadImage(@Part("file") file: RequestBody): Observable<UploadImageResponse>
 
 }

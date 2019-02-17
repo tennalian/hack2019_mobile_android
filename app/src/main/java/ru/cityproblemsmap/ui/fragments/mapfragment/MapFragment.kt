@@ -86,7 +86,9 @@ class MapFragment : BaseFragment(), MapView {
 
     override fun showPoints(points: List<Point>) {
         mapview.map.mapObjects.clear()
-        points.map { mapview.map.mapObjects.addPlacemark(it) }
+        points.map {
+            mapview.map.mapObjects.addPlacemark(it)
+        }
 
     }
 
