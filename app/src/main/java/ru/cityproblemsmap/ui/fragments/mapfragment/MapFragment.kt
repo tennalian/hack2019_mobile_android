@@ -14,6 +14,7 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import kotlinx.android.synthetic.main.fragment_map.*
 import ru.cityproblemsmap.R
+import ru.cityproblemsmap.api.model.GetPointData
 import ru.cityproblemsmap.api.model.GetPointsResponse
 import ru.cityproblemsmap.ui.activities.mainactivity.MainActivityView
 import ru.cityproblemsmap.ui.base.BaseFragment
@@ -106,6 +107,10 @@ class MapFragment : BaseFragment(), MapView {
 
     override fun passImageUriToAddPoint(uri: Uri) {
         (activity as? MainActivityView)?.onPhotoMade(uri)
+    }
+
+    override fun passPointDataToActivity(pointData: GetPointData) {
+        (activity as? MainActivityView)?.onPointClicked(pointData)
     }
 
     // ============================================================

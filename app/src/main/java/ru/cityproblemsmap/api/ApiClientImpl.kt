@@ -26,22 +26,10 @@ class ApiClientImpl(private val apiService: ApiService) : ApiClient {
     }
 
     override fun uploadImage(file: File): Observable<UploadImageResponse> {
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-        // Используем FileUtils чтобы получить файл из uri
 
-//        val file = FileUtils.getFile(this, fileUri)
-
-        // Создаем RequestBody
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
 
-        // MultipartBody.Part используется, чтобы передать имя файла
-//        val body = MultipartBody.Part.createFormData("picture", file.name, requestFile)
         val reqbody = RequestBody.create(MediaType.parse("image/*"), file)
-
-//        // Добавляем описание
-//        val descriptionString = "hello, this is description speaking"
-//        val description = RequestBody.create(
-//                MediaType.parse("multipart/form-data"), descriptionString)
 
         return apiService.uploadImage(reqbody)
                 .subscribeOn(Schedulers.io())

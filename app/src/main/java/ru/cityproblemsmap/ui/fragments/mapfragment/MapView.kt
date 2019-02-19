@@ -4,6 +4,7 @@ import android.net.Uri
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import ru.cityproblemsmap.api.model.GetPointData
 import ru.cityproblemsmap.api.model.GetPointsResponse
 
 interface MapView : MvpView {
@@ -13,5 +14,7 @@ interface MapView : MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun passImageUriToAddPoint(uri: Uri)
+
+    fun passPointDataToActivity(pointData: GetPointData)
 
 }

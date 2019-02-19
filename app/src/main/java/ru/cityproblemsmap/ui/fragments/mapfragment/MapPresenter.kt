@@ -75,7 +75,7 @@ class MapPresenter : BasePresenter<MapView>(), KoinComponent {
     }
 
     fun onPointClicked(pointData: GetPointData) {
-
+        viewState.passPointDataToActivity(pointData)
     }
 
 }

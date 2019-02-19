@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat.checkSelfPermission
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.cityproblemsmap.R
+import ru.cityproblemsmap.api.model.GetPointData
 
 class MainActivity : MvpAppCompatActivity(), MainActivityView {
 
@@ -58,6 +59,10 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
 
     override fun onPhotoMade(photoUri: Uri) {
         presenter.onPhotoMade(photoUri)
+    }
+
+    override fun onPointClicked(pointData: GetPointData) {
+        presenter.onPointClicked(pointData)
     }
 
 }

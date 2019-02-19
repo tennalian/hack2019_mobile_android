@@ -5,7 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import ru.cityproblemsmap.api.model.GetPointData
 import ru.cityproblemsmap.ui.fragments.mapfragment.MapFragment
+import ru.cityproblemsmap.ui.fragments.pointdescription.PointDescriptionFragment
 import ru.cityproblemsmap.ui.fragments.sendpoint.SendPointFragment
 
 @InjectViewState
@@ -60,6 +62,18 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
     private fun requestGpsPermissions() {
         viewState.requestPermissions(ACCESS_FINE_LOCATION, GPS_PERMISSION_REQUEST_CODE)
+    }
+
+    fun onPointClicked(pointData: GetPointData) {
+        openPointDescriptionFragment(pointData)
+    }
+
+    private fun openPointDescriptionFragment(pointData: GetPointData) {
+        val fragment = PointDescriptionFragment()
+        val args = Bundle()
+        args.putLong("id", pointData.id)
+        fragment.arguments = args
+        viewState.openFragment(fragment, "PointDescriptionFragment")
     }
 
 }
